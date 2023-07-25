@@ -9,6 +9,7 @@ function App() {
   const [users, setUsers] = useState(null);
   const [colorTable, setColorTable] = useState(false);
   const [sortByCountry, setSortByCountry] = useState(false);
+  const [inputCountry, setInputCountry] = useState('');
 
   const originalUsers = useRef();
   
@@ -41,27 +42,34 @@ useEffect(() => {
     setUsers(originalUsers.current)
   }
 
+  const onChangeHandle = (e) => {
+    setInputCountry(e.target.value);
+    //const filterUsers = users.filter(user =>user.location.country.toLowerCase().includes(e.target.value));     
+  }
 
+  const filterUsers = inputCountry 
+  ? users.filter(user =>user.location.country.toLowerCase().includes(inputCountry))
+  : users;   
 
   const sortedUsers = sortByCountry
-    ? [...users].sort(function (a, b) {
+    ? [...filterUsers].sort(function (a, b) {
       return (a.location.country.localeCompare(b.location.country));
     })
-    : users;
+    : filterUsers;
 
 
   return (
     <div className="App">
       <header>
         <h1>Prueba Tecnica</h1>
-        <button type='button' onClick={handleOnClickColor}>Colorear Filas</button>
-        <button type='button' onClick={handleOnClickCountry}>
+        <button className='button-header' type='button' onClick={handleOnClickColor}>Colorear Filas</button>
+        <button className='button-header' type='button' onClick={handleOnClickCountry}>
           {
             !sortByCountry ? 'Ordenar por Pais' : 'No ordenar por Pais'
           }
         </button>
-        <button type='button' onClick={handleOnClickReset}>Resetear Estado</button>
-        <input placeholder='Fitrar por pais' />
+        <button className='button-header' type='button' onClick={handleOnClickReset}>Resetear Estado</button>
+        <input className='input-header' placeholder='Fitrar por pais' onChange={onChangeHandle} />
       </header>
       <main>
         <UsersTable

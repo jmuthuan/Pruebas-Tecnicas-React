@@ -22,3 +22,26 @@ h1{
 .show-color-table >tr:nth-child(2n+1) {
   background-color: #666;
 }
+
+.button-header{
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 2px 16px;
+  height: 48px;
+  width: auto;
+  background-color: black;
+  border: #444 2px solid;
+  border-radius: 10px;
+}
+
+.input-header{
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 2px 16px;
+  height: 48px;
+  width: auto;
+  border: #444 2px solid;
+  border-radius: 10px;
+}

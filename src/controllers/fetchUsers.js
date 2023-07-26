@@ -1,5 +1,5 @@
 
-const URL_API = "https://randomuser.me/api/?results=10";
+const URL_API = "https://randomuser.me/api/?results=100";
 
 const fetchUsers = 
     fetch(URL_API)

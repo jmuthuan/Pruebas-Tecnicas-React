@@ -115,7 +115,7 @@ function App() {
         <button className='button-header' type='button' onClick={handleOnClickColor}>Colorear Filas</button>
         <button className='button-header' type='button' onClick={handleOnClickCountry}>
           {
-            !sortBy === sortingBy.COUNTRY ? 'Ordenar por Pais' : 'No ordenar por Pais'
+            sortBy !== sortingBy.COUNTRY ? 'Ordenar por Pais' : 'No ordenar por Pais'
           }
         </button>
         <button className='button-header' type='button' onClick={handleOnClickReset}>Resetear Estado</button>

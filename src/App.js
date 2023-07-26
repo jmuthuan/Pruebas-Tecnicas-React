@@ -18,8 +18,9 @@ function App() {
   const [inputCountry, setInputCountry] = useState('');
 
   const originalUsers = useRef();
+  //const showUsers = useRef();
 
-  
+
 
   const getUsers = async () => {
     const data = await fetchUsers;
@@ -57,18 +58,44 @@ function App() {
   }
 
 
-  const handleChangeSort = (sortInput)=>{
-    setSortBy(sortInput);
+  const handleChangeSort = (sortInput) => {
+    let sortValue;
+    switch (sortInput) {
+      case 'name':
+        sortValue = sortBy === sortingBy.NAME ? sortingBy.NONE : sortingBy.NAME;
+        break;
+
+      case 'last':
+        sortValue = sortBy === sortingBy.LAST ? sortingBy.NONE : sortingBy.LAST;
+        break;
+
+      case 'country':
+        sortValue = sortBy === sortingBy.COUNTRY ? sortingBy.NONE : sortingBy.COUNTRY;
+        break;
+
+      default:
+        sortValue = sortingBy.NONE;
+        break;
+    }
+    setSortBy(sortValue);
   }
 
 
   const sortedUsers = useMemo(() => {
-    console.log('sort')
-    return sortBy === sortingBy.COUNTRY
-      ? [...users].sort(function (a, b) {
-        return (a.location.country.localeCompare(b.location.country));
-      })
-      : users
+    console.log('sort', sortBy)
+
+    let sortFn;
+    if(sortBy === 'country') sortFn = (a,b) =>{
+      return (a.location.country.localeCompare(b.location.country))};
+    if(sortBy === 'name') sortFn = (a,b) =>{
+      return a.name.first.toLocaleLowerCase().localeCompare(b.name.first.toLocaleLowerCase())}
+    if(sortBy === 'last') sortFn = (a,b) =>{
+      return a.name.last.toLocaleLowerCase().localeCompare(b.name.last.toLocaleLowerCase())}    
+
+    return sortBy !== sortingBy.NONE 
+    ? [...users].sort(sortFn)
+    : users
+    
   }, [users, sortBy])
 
   const filterUsers = useMemo(() => {
@@ -104,7 +131,7 @@ function App() {
           users={filterUsers}
           setUsers={setUsers}
           deleteRow={deleteRow}
-          changeSortBy = {handleChangeSort}
+          changeSortBy={handleChangeSort}
         />
       </main>
 

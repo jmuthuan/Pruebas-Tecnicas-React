@@ -9,12 +9,9 @@ const UsersTable = (props) => {
       }
     
     const handleOnClick = (email) => {
-        props.deleteRow(email)
-    }
+        props.deleteRow(email)    }
 
-    const sortByNamne = ()=>{
-        console.log('name');
-    }
+    
     if (!props.users) return <div>Loading users...</div>
 
     return (

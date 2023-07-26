@@ -1,12 +1,20 @@
 
 const UsersTable = (props) => {
 
-    //const [users, setUsers] = useState(null);  
-
+    const sortingBy = {
+        NONE: 'none',
+        NAME: 'name',
+        LAST: 'last',
+        COUNTRY: 'country'
+      }
+    
     const handleOnClick = (email) => {
         props.deleteRow(email)
     }
 
+    const sortByNamne = ()=>{
+        console.log('name');
+    }
     if (!props.users) return <div>Loading users...</div>
 
     return (
@@ -14,9 +22,9 @@ const UsersTable = (props) => {
             <thead>
                 <tr>
                     <th>Foto</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Pais</th>
+                    <th onClick={()=>{props.changeSortBy(sortingBy.NAME)}}>Nombre</th>
+                    <th onClick={()=>{props.changeSortBy(sortingBy.LAST)}}>Apellido</th>
+                    <th onClick={()=>{props.changeSortBy(sortingBy.COUNTRY)}}>Pais</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
